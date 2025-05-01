@@ -825,3 +825,5 @@ And if you're hungry for more than just a course and want to understand how we l
 </a>
 
 #
+#   d e a l D y n a m o  
+ 
