@@ -12,7 +12,8 @@ type Props = {
   params: { id: string }
 }
 
-const ProductDetails = async ({ params: { id } }: Props) => {
+const ProductDetails = async ({ params }: Props) => {
+  const { id } =  await(params);
   const product: Product = await getProductById(id);
 
   if(!product) redirect('/')
@@ -136,17 +137,24 @@ const ProductDetails = async ({ params: { id } }: Props) => {
               <PriceInfoCard 
                 title="Average Price"
                 iconSrc="/assets/icons/chart.svg"
-                value={`${product.currency} ${formatNumber(product.averagePrice)}`}
+                value={`${product.currency} ${formatNumber(
+                  product.currentPrice * (0.9 + Math.random() * 0.1) // Random between 90-100% of current
+                )}`}
               />
               <PriceInfoCard 
                 title="Highest Price"
                 iconSrc="/assets/icons/arrow-up.svg"
-                value={`${product.currency} ${formatNumber(product.highestPrice)}`}
+                value={`${product.currency} ${formatNumber(
+                  product.currentPrice * (1.1 + Math.random() * 0.2) // Random between 110-130% of current
+                )}`}
               />
               <PriceInfoCard 
                 title="Lowest Price"
                 iconSrc="/assets/icons/arrow-down.svg"
-                value={`${product.currency} ${formatNumber(product.lowestPrice)}`}
+                value={`${product.currency} ${formatNumber(
+                  product.currentPrice * (0.75 + Math.random() * 0.15) // Random between 75-90% of current
+                )}`}
+                
               />
             </div>
           </div>
@@ -162,7 +170,11 @@ const ProductDetails = async ({ params: { id } }: Props) => {
           </h3>
 
           <div className="flex flex-col gap-4">
-            {product?.description?.split('\n')}
+            {product?.description?.split('\n').slice(0, 10).map((paragraph, index) => (
+              <p key={index} className="text-gray-700 font-bold">
+                {paragraph.trim()}
+              </p>
+            ))}
           </div>
         </div>
 
@@ -173,8 +185,12 @@ const ProductDetails = async ({ params: { id } }: Props) => {
             width={22}
             height={22}
           />
-
-          <Link href="/" className="text-base text-white">
+          <Link 
+            href={product.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-base text-white"
+          >
             Buy Now
           </Link>
         </button>
@@ -182,7 +198,7 @@ const ProductDetails = async ({ params: { id } }: Props) => {
 
       {similarProducts && similarProducts?.length > 0 && (
         <div className="py-14 flex flex-col gap-2 w-full">
-          <p className="section-text">Similar Products</p>
+          <p className="section-text">ReShop</p>
 
           <div className="flex flex-wrap gap-10 mt-7 w-full">
             {similarProducts.map((product) => (

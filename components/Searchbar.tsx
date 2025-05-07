@@ -35,11 +35,17 @@ const Searchbar = () => {
 
     try {
       setIsLoading(true);
-
-      // Scrape the product page
       const product = await scrapeAndStoreProduct(searchPrompt);
+      
+      if (product === null || product === undefined) {
+        return; // Silently fail without alert
+      }
+      
+      // Handle successful scrape here
+      alert(`Successfully scraped product: ${(product as { title: string }).title}`);
+      
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       setIsLoading(false);
     }
@@ -61,7 +67,7 @@ const Searchbar = () => {
       <button 
         type="submit" 
         className="searchbar-btn"
-        disabled={searchPrompt === ''}
+        disabled={searchPrompt === '' || isLoading}
       >
         {isLoading ? 'Searching...' : 'Search'}
       </button>

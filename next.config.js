@@ -1,12 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    serverActions: true,
-    serverComponentsExternalPackages: ['mongoose']
+    serverActions: {},
   },
   images: {
-    domains: ['m.media-amazon.com']
-  }
-}
+    domains: ['m.media-amazon.com'],
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

@@ -2,6 +2,7 @@ import Navbar from '@/components/Navbar'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter, Space_Grotesk } from 'next/font/google'
+import { ClerkProvider } from '@clerk/nextjs'
 
 const inter = Inter({ subsets: ['latin'] })
 const spaceGrotesk = Space_Grotesk({ 
@@ -10,7 +11,7 @@ const spaceGrotesk = Space_Grotesk({
  })
 
 export const metadata: Metadata = {
-  title: 'Pricewise',
+  title: 'DealDynamo',
   description: 'Track product prices effortlessly and save money on your online shopping.',
 }
 
@@ -20,13 +21,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <main className="max-w-10xl mx-auto">
+    <ClerkProvider>
+      <html lang="en">
+        <body>
           <Navbar />
           {children}
-        </main>
-      </body>
-    </html>
+        </body>
+      </html>
+    </ClerkProvider>
   )
 }
