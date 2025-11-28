@@ -6,7 +6,7 @@ const Navbar = () => {
     <nav className="flex items-center justify-between p-4 bg-white shadow-sm">
       <div className="flex items-center gap-4">
         <Link href="/">
-          <h1 className="text-xl font-bold">DealDynamo</h1>
+          <h1 className="text-xl font-bold">dealDash</h1>
         </Link>
         {/* Other nav links */}
       </div>
